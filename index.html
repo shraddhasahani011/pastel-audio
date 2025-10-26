@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pastel Audio Player</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #f7e9d7, #cde7f0);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .player {
+      width: 120px;
+      height: 120px;
+      background-color: #fef6c9;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .player:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .icon {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 20px 0 20px 30px;
+      border-color: transparent transparent transparent #7baacb;
+      margin-left: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .paused {
+      display: flex;
+      gap: 8px;
+    }
+
+    .paused div {
+      width: 10px;
+      height: 30px;
+      background: #7baacb;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="player" id="playerButton">
+    <div class="icon" id="icon"></div>
+  </div>
+
+  <audio id="audio">
+    <!-- Make sure your audio file is in the same folder as this HTML file -->
+    <source src="audio.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const playerButton = document.getElementById('playerButton');
+    const icon = document.getElementById('icon');
+    const audio = document.getElementById('audio');
+    let playing = false;
+
+    playerButton.addEventListener('click', () => {
+      if (!playing) {
+        audio.play();
+        playing = true;
+        icon.className = 'paused';
+        icon.innerHTML = '<div></div><div></div>';
+      } else {
+        audio.pause();
+        playing = false;
+        icon.className = 'icon';
+        icon.innerHTML = '';
+      }
+    });
+  </script>
+</body>
+</html>
